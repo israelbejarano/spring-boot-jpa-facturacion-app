@@ -30,28 +30,28 @@
 		<h1
 			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
 			th:text="${titulo}"></h1>
-		<a th:href="@{/form}">Crear cliente</a>
-		<table class="table table-striped">
-			<thead>
+		<form th:action="@{/form}" th:object="${cliente}" method="post">
+			<table>
 				<tr>
-					<th>id</th>
-					<th>nombre</th>
-					<th>apellido</th>
-					<th>email</th>
-					<th>fecha</th>
+					<td>Nombre</td>
+					<td><input type="text" th:field="*{nombre}" class="form-control"/></td>
 				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="cliente: ${clientes}">
-					<td th:text="${cliente.id}"></td>
-					<td th:text="${cliente.nombre}"></td>
-					<td th:text="${cliente.apellido}"></td>
-					<td th:text="${cliente.email}"></td>
-					<td th:text="${cliente.createAt}"></td>
+				<tr>
+					<td>Apellido</td>
+					<td><input type="text" th:field="*{apellido}" class="form-control"/></td>
 				</tr>
-			</tbody>
-		</table>
+				<tr>
+					<td>Email</td>
+					<td><input type="email" th:field="*{email}" class="form-control"/></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Crear Cliente" class="btn btn-primary"/></td>
+				</tr>
+			</table>
+			<input type="hidden" th:field="*{id}" />
+		</form>
 	</div>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>

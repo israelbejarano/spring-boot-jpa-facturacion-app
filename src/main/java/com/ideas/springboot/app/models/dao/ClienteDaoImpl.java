@@ -10,12 +10,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideas.springboot.app.models.entity.Cliente;
 
+/**
+ * The Class ClienteDaoImpl.
+ * @author Israel Bejarano
+ */
 @Repository("clienteDaoJPA")
 public class ClienteDaoImpl implements IClienteDao {
 	
+	/** The em. */
 	@PersistenceContext
 	private EntityManager em;
 
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
@@ -23,4 +33,14 @@ public class ClienteDaoImpl implements IClienteDao {
 		return em.createQuery("from Cliente").getResultList();
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param cliente the cliente
+	 */
+	@Override
+	@Transactional
+	public void save(Cliente cliente) {
+		em.persist(cliente);
+	}
 }
