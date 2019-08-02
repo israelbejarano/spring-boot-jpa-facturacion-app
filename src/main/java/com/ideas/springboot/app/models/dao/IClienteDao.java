@@ -23,4 +23,12 @@ public interface IClienteDao {
 	 * @param cliente the cliente
 	 */
 	public void save(Cliente cliente);
+	
+	/**
+	 * Find one.
+	 *
+	 * @param id the id
+	 * @return the cliente
+	 */
+	public Cliente findOne(Long id);
 }
