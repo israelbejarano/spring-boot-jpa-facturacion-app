@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.ideas.springboot.app.models.dao.IClienteDao;
 import com.ideas.springboot.app.models.entity.Cliente;
@@ -21,6 +23,7 @@ import com.ideas.springboot.app.models.entity.Cliente;
  * @author Israel Bejarano
  */
 @Controller
+@SessionAttributes("cliente")
 public class ClienteController {
 	
 	/** The cliente dao. */
@@ -83,12 +86,13 @@ public class ClienteController {
 	 * @return the string
 	 */
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de cliente");
 			return "form";
 		}
 		clienteDao.save(cliente);
+		status.setComplete();
 		return "redirect:listar";
 	}
 }
