@@ -31,4 +31,11 @@ public interface IClienteDao {
 	 * @return the cliente
 	 */
 	public Cliente findOne(Long id);
+	
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 */
+	public void delete(Long id);
 }

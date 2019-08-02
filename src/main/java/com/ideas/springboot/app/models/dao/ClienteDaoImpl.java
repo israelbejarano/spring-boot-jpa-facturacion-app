@@ -32,11 +32,23 @@ public class ClienteDaoImpl implements IClienteDao {
 	public List<Cliente> findAll() {
 		return em.createQuery("from Cliente").getResultList();
 	}
+	
+	/**
+	 * Find one.
+	 *
+	 * @param id the id
+	 * @return the cliente
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findOne(Long id) {
+		return em.find(Cliente.class, id);
+	}
 
 	/**
 	 * Save.
 	 *
-	 * @param cliente the cliente
+	 * @param cliente the cliente. Sirve tanto para editar como para crear
 	 */
 	@Override
 	@Transactional
@@ -49,13 +61,13 @@ public class ClienteDaoImpl implements IClienteDao {
 	}
 
 	/**
-	 * Find one.
+	 * Delete.
 	 *
 	 * @param id the id
-	 * @return the cliente
 	 */
 	@Override
-	public Cliente findOne(Long id) {
-		return em.find(Cliente.class, id);
+	@Transactional
+	public void delete(Long id) {
+		em.remove(findOne(id));
 	}
 }
