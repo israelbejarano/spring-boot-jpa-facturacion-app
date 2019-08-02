@@ -2,6 +2,9 @@ package com.ideas.springboot.app.models.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.ideas.springboot.app.models.entity.Cliente;
 
 /**
@@ -16,6 +19,14 @@ public interface IClienteService {
 	 * @return the list
 	 */
 	public List<Cliente> findAll();
+	
+	/**
+	 * Find all.
+	 *
+	 * @param pageable the pageable
+	 * @return the page
+	 */
+	public Page<Cliente> findAll(Pageable pageable);
 	
 	/**
 	 * Find one.
