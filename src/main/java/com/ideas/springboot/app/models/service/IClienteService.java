@@ -1,14 +1,14 @@
-package com.ideas.springboot.app.models.dao;
+package com.ideas.springboot.app.models.service;
 
 import java.util.List;
 
 import com.ideas.springboot.app.models.entity.Cliente;
 
 /**
- * The Interface IClienteDao.
+ * The Interface IClienteService.
  * @author Israel Bejarano
  */
-public interface IClienteDao {
+public interface IClienteService {
 	
 	/**
 	 * Find all.
@@ -31,11 +31,12 @@ public interface IClienteDao {
 	 * @param cliente the cliente
 	 */
 	public void save(Cliente cliente);
-	
+
 	/**
 	 * Delete.
 	 *
 	 * @param id the id
 	 */
 	public void delete(Long id);
+
 }
