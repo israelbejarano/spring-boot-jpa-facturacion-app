@@ -49,6 +49,9 @@ public class Cliente implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
+	
+	/** The foto. */
+	private String foto;
 		
 	/**
 	 * Gets the id.
@@ -147,6 +150,24 @@ public class Cliente implements Serializable{
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/**
+	 * Gets the foto.
+	 *
+	 * @return the foto
+	 */
+	public String getFoto() {
+		return foto;
+	}
+
+	/**
+	 * Sets the foto.
+	 *
+	 * @param foto the new foto
+	 */
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	/** The Constant serialVersionUID. */
