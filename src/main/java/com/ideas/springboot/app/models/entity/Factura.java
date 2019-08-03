@@ -52,7 +52,8 @@ public class Factura implements Serializable {
 	private Cliente cliente;
 	
 	/** The items. */
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// orphanRemoval sirve para eliminar registros que se quedan colgando sin relacion ninguna
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "factura_id") // para generar la llave foreanea factura_id en la tabla facturas_items
 	private List<ItemFactura> items;
 	

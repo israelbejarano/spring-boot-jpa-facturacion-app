@@ -62,7 +62,8 @@ public class Cliente implements Serializable{
 	// carga perezosa (lazy), evita que traiga todo de una sola vez, es lo recomendado
 	// persiste/elimina a sus elementos hijos en cascada de forma automatica
 	// con mappedBy hacemos que sea bidireccional las acciones, crea el campo cliente id en la tabla facturas
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
+	// orphanRemoval sirve para eliminar registros que se quedan colgando sin relacion ninguna
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
 	private List<Factura> facturas;
 		
 	/**
