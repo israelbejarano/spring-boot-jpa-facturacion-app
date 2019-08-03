@@ -1,13 +1,18 @@
 package com.ideas.springboot.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,7 +57,48 @@ public class Cliente implements Serializable{
 	
 	/** The foto. */
 	private String foto;
+	
+	/** The facturas. */
+	// carga perezosa (lazy), evita que traiga todo de una sola vez, es lo recomendado
+	// persiste/elimina a sus elementos hijos en cascada de forma automatica
+	// con mappedBy hacemos que sea bidireccional las acciones, crea el campo cliente id en la tabla facturas
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
+	private List<Factura> facturas;
 		
+	/**
+	 * Instantiates a new cliente.
+	 */
+	public Cliente() {
+		facturas = new ArrayList<Factura>();
+	}
+
+	/**
+	 * Gets the facturas.
+	 *
+	 * @return the facturas
+	 */
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	/**
+	 * Sets the facturas.
+	 *
+	 * @param facturas the new facturas
+	 */
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+	
+	/**
+	 * Adds the factura.
+	 *
+	 * @param factura the factura
+	 */
+	public void addFactura(Factura factura) {
+		facturas.add(factura);
+	}
+
 	/**
 	 * Gets the id.
 	 *
