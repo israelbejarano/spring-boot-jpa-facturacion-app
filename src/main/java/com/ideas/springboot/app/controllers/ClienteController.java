@@ -1,6 +1,7 @@
 package com.ideas.springboot.app.controllers;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,9 +13,13 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,6 +52,30 @@ public class ClienteController {
 	
 	/** The log. */
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
+	/**
+	 * Ver foto.
+	 *
+	 * @param filename the filename
+	 * @return the response entity
+	 */
+	@GetMapping(value = "/uploads/{filename:.+}")
+	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
+		Path pathFoto = Paths.get("uploads").resolve(filename).toAbsolutePath();
+		log.info("pathFoto: " + pathFoto);
+		Resource recurso = null;
+		try {
+			recurso = new UrlResource(pathFoto.toUri());
+			if(!recurso.exists() || !recurso.isReadable()) {
+				throw new RuntimeException("Error: no se puede cargar la imagen: " + pathFoto.toString());
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+				.body(recurso);
+	}
 	
 	/**
 	 * Ver.
