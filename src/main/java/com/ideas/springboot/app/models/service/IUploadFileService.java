@@ -35,4 +35,16 @@ public interface IUploadFileService {
 	 * @return true, if successful
 	 */
 	public boolean delete(String filename);
+	
+	/**
+	 * Delete all.
+	 */
+	public void deleteAll();
+	
+	/**
+	 * Inits the.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public void init() throws IOException;
 }
