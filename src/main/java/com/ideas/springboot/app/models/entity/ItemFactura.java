@@ -3,9 +3,12 @@ package com.ideas.springboot.app.models.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +26,10 @@ public class ItemFactura implements Serializable {
 	
 	/** The cantidad. */
 	private Integer cantidad;
+	
+	@ManyToOne(fetch = FetchType.LAZY) // carga perezosa, evita que traiga todo de una sola vez, es lo recomendado
+	@JoinColumn(name = "producto_id") // para generar la llave foreanea factura_id en la tabla facturas_items
+	private Producto producto;
 	
 	/**
 	 * Gets the id.
@@ -63,10 +70,10 @@ public class ItemFactura implements Serializable {
 	/**
 	 * Calcular importe.
 	 *
-	 * @return the long
+	 * @return the double
 	 */
-	public Long calcularImporte() {
-		return cantidad.longValue();
+	public Double calcularImporte() {
+		return cantidad.doubleValue() * producto.getPrecio();
 	}
 
 	/** The Constant serialVersionUID. */
