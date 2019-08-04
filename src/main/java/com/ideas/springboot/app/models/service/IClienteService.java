@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.ideas.springboot.app.models.entity.Cliente;
+import com.ideas.springboot.app.models.entity.Producto;
 
 /**
  * The Interface IClienteService.
@@ -49,5 +50,13 @@ public interface IClienteService {
 	 * @param id the id
 	 */
 	public void delete(Long id);
+	
+	/**
+	 * Find by nombre.
+	 *
+	 * @param term the term
+	 * @return the list
+	 */
+	public List<Producto> findByNombre(String term);
 
 }
