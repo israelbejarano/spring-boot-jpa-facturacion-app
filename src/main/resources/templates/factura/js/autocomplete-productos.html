@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
 	<script type="text/javascript" th:fragment="javascript">
 		$(document).ready(function() {
-
 			$("#buscar_producto").autocomplete({
-
 				source : function(request, response) {
 					$.ajax({
 						url : "/factura/cargar-productos/" + request.term,
@@ -26,8 +23,12 @@
 					});
 				},
 				select : function(event, ui) {
-					$("#buscar_producto").val(ui.item.label);
-
+					//$("#buscar_producto").val(ui.item.label);
+					var linea = $("#plantillaItemsFactura").html();
+					linea = linea.replace(/{ID}/g, ui.item.value);
+					linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+					linea = linea.replace(/{PRECIO}/g, ui.item.precio);
+					$("#cargarItemProductos tbody").append(linea);
 					return false;
 				}
 			});
