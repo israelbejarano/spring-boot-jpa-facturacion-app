@@ -68,6 +68,24 @@ public class ItemFactura implements Serializable {
 	}
 	
 	/**
+	 * Gets the producto.
+	 *
+	 * @return the producto
+	 */
+	public Producto getProducto() {
+		return producto;
+	}
+
+	/**
+	 * Sets the producto.
+	 *
+	 * @param producto the new producto
+	 */
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	/**
 	 * Calcular importe.
 	 *
 	 * @return the double
