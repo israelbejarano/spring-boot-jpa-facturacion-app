@@ -11,12 +11,18 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.ideas.springboot.app.auth.handler.LoginSuccessHandler;
+
 /**
  * The Class SpringSecurityConfig. Clase donde se configura la seguridad (Spring Security)
  * @author Israel Bejarano
  */
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	/** The success handler. */
+	@Autowired
+	private LoginSuccessHandler successHandler;
 	
 	/**
 	 * Configure. Permite el qué ver según tu rol en la app. Como los guards en Angular para las rutas
@@ -34,7 +40,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/factura/**").hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
-	    	.formLogin().loginPage("/login")
+	    	.formLogin()
+	    	.successHandler(successHandler)
+	    	.loginPage("/login")
 	    	.permitAll()
 	    .and()
 	    .logout().permitAll()
