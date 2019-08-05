@@ -19,6 +19,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	/**
+	 * Configure. Permite el qué ver según tu rol en la app. Como los guards en Angular para las rutas
+	 *
+	 * @param http the http
+	 * @throws Exception the exception
+	 */
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll()
+		.antMatchers("/ver/**").hasAnyRole("USER")
+		.antMatchers("/uploads/**").hasAnyRole("USER")
+		.antMatchers("/form/**").hasAnyRole("ADMIN")
+		.antMatchers("/eliminar/**").hasAnyRole("ADMIN")
+		.antMatchers("/factura/**").hasAnyRole("ADMIN")
+		.anyRequest().authenticated()
+		.and()
+	    .formLogin().permitAll()
+	    .and()
+	    .logout().permitAll();
+	}
+	
+	/**
 	 * Password encoder.
 	 *
 	 * @return the b crypt password encoder
@@ -35,29 +56,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @throws Exception the exception
 	 */
 	@Autowired
-	public void configurerGlobarl(AuthenticationManagerBuilder builder) throws Exception {
+	public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
 		
 		PasswordEncoder encoder = passwordEncoder();
 		UserBuilder users = User.builder().passwordEncoder(encoder::encode);
 		builder.inMemoryAuthentication()
 		.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
 		.withUser(users.username("israel").password("12345").roles("USER"));
-	}
-
-	/**
-	 * Configure. Permite el qué ver según tu rol en la app. Como los guards en Angular para las rutas
-	 *
-	 * @param http the http
-	 * @throws Exception the exception
-	 */
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "css/**", "js/**", "images/**", "/listar").permitAll()
-		.antMatchers("/ver/**").hasAnyRole("USER")
-		.antMatchers("/uploads/**").hasAnyRole("USER")
-		.antMatchers("/form/**").hasAnyRole("ADMIN")
-		.antMatchers("/eliminar/**").hasAnyRole("ADMIN")
-		.antMatchers("/factura/**").hasAnyRole("ADMIN")
-		.anyRequest().authenticated();
 	}
 }
