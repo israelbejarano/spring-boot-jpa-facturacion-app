@@ -53,7 +53,11 @@ public class FacturaController {
 	 */
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
-		Factura factura = clienteService.findFacturaById(id);
+		// metodo sin optimizar la consulta (hace 7 consultas)
+		// Factura factura = clienteService.findFacturaById(id);
+		
+		// metodo optimizado, hace una consulta con joins
+		Factura factura = clienteService.fetchFacturaByIdWithClienteWithItemFacturaWithProducto(id);
 		if(factura == null) {
 			flash.addAttribute("error", "La factura no existe.");
 			return "redirect:/listar";
