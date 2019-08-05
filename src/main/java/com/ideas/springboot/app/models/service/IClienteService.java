@@ -53,6 +53,14 @@ public interface IClienteService {
 	public void delete(Long id);
 	
 	/**
+	 * Fetch by id with facturas.
+	 *
+	 * @param id the id
+	 * @return the cliente
+	 */
+	public Cliente fetchByIdWithFacturas(Long id);
+	
+	/**
 	 * Find by nombre.
 	 *
 	 * @param term the term

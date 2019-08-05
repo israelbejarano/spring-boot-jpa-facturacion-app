@@ -68,6 +68,18 @@ public class ClienteServiceImpl implements IClienteService {
 	public Cliente findOne(Long id) {
 		return clienteDao.findById(id).orElse(null);
 	}
+	
+	/**
+	 * Fetch by id with facturas.
+	 *
+	 * @param id the id
+	 * @return the cliente
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente fetchByIdWithFacturas(Long id) {
+		return clienteDao.fetchByIdWithFacturas(id);
+	}
 
 	/**
 	 * Save.
