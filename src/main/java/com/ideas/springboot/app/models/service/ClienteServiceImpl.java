@@ -137,4 +137,15 @@ public class ClienteServiceImpl implements IClienteService {
 	public Factura findFacturaById(Long id) {
 		return facturaDao.findById(id).orElse(null);
 	}
+
+	/**
+	 * Delete factura.
+	 *
+	 * @param id the id
+	 */
+	@Override
+	@Transactional
+	public void deleteFactura(Long id) {
+		facturaDao.deleteById(id);
+	}
 }
