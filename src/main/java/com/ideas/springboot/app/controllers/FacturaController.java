@@ -42,6 +42,26 @@ public class FacturaController {
 	
 	/** The log. */
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
+	/**
+	 * Ver.
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param flash the flash
+	 * @return the string
+	 */
+	@GetMapping("/ver/{id}")
+	public String ver(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
+		Factura factura = clienteService.findFacturaById(id);
+		if(factura == null) {
+			flash.addAttribute("error", "La factura no existe.");
+			return "redirect:/listar";
+		}
+		model.addAttribute("factura", factura);
+		model.addAttribute("titulo", "Factura: ".concat(factura.getDescripcion()));
+		return "factura/ver";
+	}
 
 	/**
 	 * Crear.

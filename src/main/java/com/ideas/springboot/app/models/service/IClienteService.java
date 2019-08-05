@@ -74,5 +74,13 @@ public interface IClienteService {
 	 * @return the producto
 	 */
 	public Producto findProductoById(Long id);
+	
+	/**
+	 * Find factura by id.
+	 *
+	 * @param id the id
+	 * @return the factura
+	 */
+	public Factura findFacturaById(Long id);
 
 }
