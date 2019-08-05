@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -19,10 +20,14 @@ public class MvcConfig implements WebMvcConfigurer {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	/**
-	 * Adds the resource handlers.
+	 * Adds the view controllers.
 	 *
 	 * @param registry the registry
 	 */
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/error_403").setViewName("error_403");
+	}
+	
 	/*@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
