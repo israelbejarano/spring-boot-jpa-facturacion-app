@@ -137,6 +137,12 @@ public class ClienteController {
 			logger.info("Hola usando SecurityContextHolderAwareRequestWrapper ".concat(auth.getName()).concat(" NO tienes acceso."));
 		}
 		
+		if(request.isUserInRole("ROLE_ADMIN")) {
+			logger.info("Hola usando HttpServletRequest ".concat(auth.getName()).concat(" tienes acceso."));
+		} else {
+			logger.info("Hola usando HttpServletRequest ".concat(auth.getName()).concat(" NO tienes acceso."));
+		}
+		
 		Pageable pageRequest = PageRequest.of(page, 5); // elementos por pagina.
 		
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
