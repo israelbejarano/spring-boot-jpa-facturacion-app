@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -111,7 +113,8 @@ public class ClienteController {
 	 * @return the string
 	 */
 	@RequestMapping(value = {"/listar", "/"}, method = RequestMethod.GET)
-	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Authentication authentication) {
+	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
+						Authentication authentication, HttpServletRequest request) {
 		
 		if(authentication != null) {
 			logger.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
@@ -125,6 +128,13 @@ public class ClienteController {
 			logger.info("Hola ".concat(auth.getName()).concat(" tienes acceso."));
 		} else {
 			logger.info("Hola ".concat(auth.getName()).concat(" NO tienes acceso."));
+		}
+		
+		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request, "ROLE_");
+		if(securityContext.isUserInRole("ADMIN")) {
+			logger.info("Hola usando SecurityContextHolderAwareRequestWrapper ".concat(auth.getName()).concat(" tienes acceso."));
+		} else {
+			logger.info("Hola usando SecurityContextHolderAwareRequestWrapper ".concat(auth.getName()).concat(" NO tienes acceso."));
 		}
 		
 		Pageable pageRequest = PageRequest.of(page, 5); // elementos por pagina.
