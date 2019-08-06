@@ -2,6 +2,7 @@ package com.ideas.springboot.app.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -115,6 +118,12 @@ public class ClienteController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null) {
 			logger.info("Utilizando forma estática SecurityContextHolder.getContext().getAuthentication(): Hola, tu username es: ".concat(auth.getName()));
+		}
+		
+		if(hasRole("ROLE_ADMIN")) {
+			logger.info("Hola ".concat(auth.getName()).concat(" tienes acceso."));
+		} else {
+			logger.info("Hola ".concat(auth.getName()).concat(" NO tienes acceso."));
 		}
 		
 		Pageable pageRequest = PageRequest.of(page, 5); // elementos por pagina.
@@ -227,5 +236,32 @@ public class ClienteController {
 			}
 		}
 		return "redirect:/listar";
+	}
+	
+	/**
+	 * Checks for role.
+	 *
+	 * @param role the role
+	 * @return true, if successful
+	 */
+	private boolean hasRole(String role) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		if(context == null) {
+			return false;
+		}
+		
+		Authentication auth = context.getAuthentication();
+		if(auth == null) {
+			return false;
+		}
+		
+		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+		for (GrantedAuthority authority : authorities) {
+			if(role.equals(authority.getAuthority())) {
+				logger.info("Hola usuario ".concat(auth.getName()).concat(" tu rol es: ").concat(authority.getAuthority()));
+				return true;
+			}
+		}
+		return false;
 	}
 }
