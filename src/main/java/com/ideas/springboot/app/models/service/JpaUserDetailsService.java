@@ -19,14 +19,27 @@ import com.ideas.springboot.app.models.dao.IUsuarioDao;
 import com.ideas.springboot.app.models.entity.Role;
 import com.ideas.springboot.app.models.entity.Usuario;
 
+/**
+ * The Class JpaUserDetailsService.
+ * @author Israel Bejarano
+ */
 @Service("jpaUserDetailsService")
 public class JpaUserDetailsService implements UserDetailsService{
 	
+	/** The usuario dao. */
 	@Autowired
 	private IUsuarioDao usuarioDao;
 	
+	/** The logger. */
 	private Logger logger = LoggerFactory.getLogger(JpaUserDetailsService.class);
 
+	/**
+	 * Load user by username.
+	 *
+	 * @param username the username
+	 * @return the user details
+	 * @throws UsernameNotFoundException the username not found exception
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,5 +59,4 @@ public class JpaUserDetailsService implements UserDetailsService{
 		}
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
 	}
-
 }
