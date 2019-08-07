@@ -18,7 +18,7 @@ import com.ideas.springboot.app.auth.handler.LoginSuccessHandler;
  * The Class SpringSecurityConfig. Clase donde se configura la seguridad (Spring Security)
  * @author Israel Bejarano
  */
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
