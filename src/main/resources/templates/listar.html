@@ -3,6 +3,7 @@
 <head th:replace="layout/layout :: head">
 </head>
 <body>
+	<div id="i18n_eliminar_cliente" th:text="#{text.cliente.eliminarOk}" style="display: none;"></div>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container py-4">
 
@@ -36,7 +37,7 @@
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:text="#{text.cliente.factura.crear}" class="btn btn-success btn-xs" th:href="@{/factura/form/} + ${cliente.id}"></a></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:text="#{text.cliente.editar}" class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}"></a></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:text="#{text.cliente.factura.eliminar}" class="btn btn-danger btn-xs"
-								th:href="@{/eliminar/} + ${cliente.id}" onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></td>
+								th:href="@{/eliminar/} + ${cliente.id}" onclick="return confirm(document.getElementById('i18n_eliminar_cliente').innerHTML);"></a></td>
 						</tr>
 					</tbody>
 				</table>
