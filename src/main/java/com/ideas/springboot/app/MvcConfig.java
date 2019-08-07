@@ -1,5 +1,7 @@
 package com.ideas.springboot.app;
 
+import java.util.Locale;
+
 //import java.nio.file.Paths;
 
 //import org.slf4j.Logger;
@@ -7,12 +9,16 @@ package com.ideas.springboot.app;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 //import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
- * The Class MvcConfig. Clase para configurar el directorio de subida de imagenes
+ * The Class MvcConfig. Clase para configurar el directorio de subida de imágenes, idiomas
  * @author Israel Bejarano
  */
 @Configuration
@@ -48,4 +54,40 @@ public class MvcConfig implements WebMvcConfigurer {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	/**
+	 * Locale resolver.
+	 *
+	 * @return the locale resolver
+	 */
+	@Bean
+	public LocaleResolver localeResolver() {
+		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+		localeResolver.setDefaultLocale(new Locale("es", "ES")); // por defecto nuestra app es en espaniol
+		return localeResolver;
+	}
+	
+	/**
+	 * Locale change interceptor.
+	 *
+	 * @return the locale change interceptor
+	 */
+	@Bean
+	public LocaleChangeInterceptor localeChangeInterceptor() {
+		LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor();
+		localeInterceptor.setParamName("lang");;
+		return localeInterceptor;
+	}
+
+	/**
+	 * Adds the interceptors.
+	 *
+	 * @param registry the registry
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(localeChangeInterceptor());
+	}
+	
+	
 }
