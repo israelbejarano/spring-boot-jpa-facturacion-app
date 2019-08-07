@@ -1,9 +1,18 @@
 # Facturación App.
 
-## Under Construction!
+## La aplicación es un sistema de facturación para clientes.
+
+
+### Under Construction!
 
   
 
-Aplicación web jpa realizada con Spring Boot, thymeleaf como motor de plantilla HTML, Bootstrap, Jquery, H2 como motor de BBDD.
+Aplicación web jpa realizada con:
 
-La aplicación es un sistema de facturación para clientes.
+* Spring Boot.
+* thymeleaf como motor de plantilla HTML.
+* Bootstrap.
+* Jquery.
+* H2 como motor de BBDD en versión 1.0.0 de la aplicación.
+* MySQL en versiones posteriores de la aplicación.
+* Uso de OpenPdf v1.0.5 para exportaciones a pdf. Es un fork de Itext
