@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -66,6 +67,7 @@ public class ClienteController {
 	 * @param filename the filename
 	 * @return the response entity
 	 */
+	@Secured("ROLE_USER")
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 		Resource recurso = null;
@@ -87,6 +89,7 @@ public class ClienteController {
 	 * @param flash the flash
 	 * @return the string
 	 */
+	@Secured("ROLE_USER")
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		// metodo sin optimizar la forma de traer las facturas
@@ -161,6 +164,7 @@ public class ClienteController {
 	 * @param model the model
 	 * @return the string
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/form")
 	public String crear(Map<String, Object> model) {
 		Cliente cliente = new Cliente();
@@ -177,6 +181,7 @@ public class ClienteController {
 	 * @param flash the flash
 	 * @return the string
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/form/{id}")
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Cliente cliente = null;
@@ -206,6 +211,7 @@ public class ClienteController {
 	 * @param status the status
 	 * @return the string
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, @RequestParam("file") MultipartFile foto, RedirectAttributes flash,SessionStatus status) {
 		if(result.hasErrors()) {
@@ -241,6 +247,7 @@ public class ClienteController {
 	 * @param flash the flash
 	 * @return the string
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		if(id > 0) {
