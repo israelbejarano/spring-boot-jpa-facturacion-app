@@ -22,7 +22,8 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 /**
- * The Class FacturaPdfView. Componente que renderiza el pdf de la factura
+ * The Class FacturaPdfView. Componente que renderiza el pdf de la factura. 
+ * funcionalidad sacada de https://itextpdf.com/en/resources/examples
  * @author Israel Bejarano
  */
 @Component("factura/ver")
