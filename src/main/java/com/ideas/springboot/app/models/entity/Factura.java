@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The Class Factura.
@@ -151,6 +152,7 @@ public class Factura implements Serializable {
 	 *
 	 * @return the cliente
 	 */
+	@XmlTransient	// para evitar bucles infinitos al exportar a xml
 	public Cliente getCliente() {
 		return cliente;
 	}
