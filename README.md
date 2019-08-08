@@ -17,3 +17,5 @@ Aplicación web jpa realizada con:
 * MySQL en versiones posteriores de la aplicación.
 * Uso de OpenPdf v1.0.5 para exportaciones a pdf. Es un fork de Itext.
 * Uso de Apache poi para exportar a Excel.
+* Uso de Super-csv para exportar a CSV.
+* Uso de spring-oxm para exportar a XML.
