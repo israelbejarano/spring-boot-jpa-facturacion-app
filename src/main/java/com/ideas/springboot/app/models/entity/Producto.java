@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * The Class Producto.
  * @author Israel Bejarano
@@ -35,6 +37,7 @@ public class Producto implements Serializable {
 	/** The create at. */
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
 	
 	@PrePersist

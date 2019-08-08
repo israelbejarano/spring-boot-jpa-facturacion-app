@@ -23,6 +23,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The Class Factura.
@@ -50,6 +51,7 @@ public class Factura implements Serializable {
 	/** The create at. */
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
 	
 	/** The cliente. */
