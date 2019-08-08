@@ -98,7 +98,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Bean
 	public Jaxb2Marshaller jaxb2Marshaller() {
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-		marshaller.setClassesToBeBound(new Class[] {});
+		marshaller.setClassesToBeBound(new Class[] {com.ideas.springboot.app.view.xml.ClienteList.class});
 		return marshaller;
 	}
 }
