@@ -3,6 +3,7 @@ package com.ideas.springboot.app.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,7 +47,6 @@ import com.ideas.springboot.app.models.service.IClienteService;
 import com.ideas.springboot.app.models.service.IUploadFileService;
 import com.ideas.springboot.app.util.paginator.PageRender;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ClienteController.
  * @author Israel Bejarano
@@ -116,6 +117,17 @@ public class ClienteController {
 		model.put("titulo", messageSource.getMessage("text.cliente.detalle.titulo", null, locale).concat(": ").concat(cliente.getNombre()));
 		
 		return "ver";
+	}
+	
+	/**
+	 * Listar rest. Devuelve el listado de clientes de Forma rest (json o xml)
+	 *
+	 * @return the list
+	 */
+	@GetMapping(value = "/listar-rest")
+	public @ResponseBody List<Cliente> listarRest() {
+	
+		return clienteService.findAll();
 	}
 	
 	/**
