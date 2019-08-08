@@ -27,7 +27,7 @@ public class ItemFactura implements Serializable {
 	/** The cantidad. */
 	private Integer cantidad;
 	
-	@ManyToOne(fetch = FetchType.LAZY) // carga perezosa, evita que traiga todo de una sola vez, es lo recomendado
+	@ManyToOne(fetch = FetchType.EAGER) // traer los productos con los items factura, esto es para la parte de export a json
 	@JoinColumn(name = "producto_id") // para generar la llave foreanea factura_id en la tabla facturas_items
 	private Producto producto;
 	

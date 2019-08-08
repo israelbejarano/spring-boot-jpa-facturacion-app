@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * The Class Cliente.
@@ -66,7 +66,7 @@ public class Cliente implements Serializable{
 	// con mappedBy hacemos que sea bidireccional las acciones, crea el campo cliente id en la tabla facturas
 	// orphanRemoval sirve para eliminar registros que se quedan colgando sin relacion ninguna
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
-	@JsonIgnore
+	@JsonManagedReference
 	private List<Factura> facturas;
 		
 	/**

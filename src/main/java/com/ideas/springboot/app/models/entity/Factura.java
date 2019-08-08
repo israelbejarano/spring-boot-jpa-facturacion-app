@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The Class Factura.
  * @author Israel Bejarano
@@ -52,6 +54,7 @@ public class Factura implements Serializable {
 	
 	/** The cliente. */
 	@ManyToOne(fetch = FetchType.LAZY) // carga perezosa, evita que traiga todo de una sola vez, es lo recomendado
+	@JsonBackReference
 	private Cliente cliente;
 	
 	/** The items. */
