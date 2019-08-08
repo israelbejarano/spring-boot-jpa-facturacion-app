@@ -46,6 +46,7 @@ import com.ideas.springboot.app.models.entity.Cliente;
 import com.ideas.springboot.app.models.service.IClienteService;
 import com.ideas.springboot.app.models.service.IUploadFileService;
 import com.ideas.springboot.app.util.paginator.PageRender;
+import com.ideas.springboot.app.view.xml.ClienteList;
 
 /**
  * The Class ClienteController.
@@ -125,9 +126,9 @@ public class ClienteController {
 	 * @return the list
 	 */
 	@GetMapping(value = "/listar-rest")
-	public @ResponseBody List<Cliente> listarRest() {
+	public @ResponseBody ClienteList listarRest() {
 	
-		return clienteService.findAll();
+		return new ClienteList(clienteService.findAll());
 	}
 	
 	/**
