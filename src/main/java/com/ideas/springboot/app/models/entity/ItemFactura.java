@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The Class ItemFactura.
  * @author Israel Bejarano
@@ -27,8 +29,9 @@ public class ItemFactura implements Serializable {
 	/** The cantidad. */
 	private Integer cantidad;
 	
-	@ManyToOne(fetch = FetchType.EAGER) // traer los productos con los items factura, esto es para la parte de export a json
+	@ManyToOne(fetch = FetchType.LAZY) // carga perezosa, evita que traiga todo de una sola vez, es lo recomendado
 	@JoinColumn(name = "producto_id") // para generar la llave foreanea factura_id en la tabla facturas_items
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Producto producto;
 	
 	/**
